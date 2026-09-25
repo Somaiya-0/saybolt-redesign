@@ -103,12 +103,6 @@ h1 em, h2 em, .display em { font-family: inherit; font-style: normal; font-weigh
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(240,212,136,.7); } 100% { box-shadow: 0 0 0 12px rgba(240,212,136,0); } }
 @keyframes shimmer { to { background-position: -220% 0; } }
 @keyframes wordIn { to { transform: translateY(0) rotateX(0); opacity: 1; } }
-/* Hero title loop: rise in, hold, lift out, repeat (7s cycle; per-word delays keep the stagger every cycle) */
-@keyframes wordLoop {
-  0% { transform: translateY(115%) rotateX(-40deg); opacity: 0; }
-  12%, 78% { transform: translateY(0) rotateX(0); opacity: 1; }
-  90%, 100% { transform: translateY(-115%) rotateX(40deg); opacity: 0; }
-}
 @keyframes shipMove { 0%, 4% { left: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 96%, 100% { left: 100%; opacity: 0; } }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes whZoom { from { transform: scale(1); } to { transform: scale(1.09); } }
@@ -176,8 +170,9 @@ h1 em, h2 em, .display em { font-family: inherit; font-style: normal; font-weigh
 .hx-kicker .dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--gold-300); animation: pulse 2s infinite; }
 .hx-title { color: #fff; font-size: clamp(2.3rem, 4.4vw, 3.85rem); line-height: 1.04; letter-spacing: -0.03em; font-weight: 700; margin-bottom: 18px; perspective: 600px; }
 .hx-title .ln { display: flex; flex-wrap: wrap; overflow: visible; padding-bottom: .1em; }
-.hx-title .word { display: inline-block; overflow: hidden; margin-right: .28em; }
-.hx-title .word > span { display: inline-block; transform: translateY(115%) rotateX(-40deg); transform-origin: bottom; opacity: 0; animation: wordLoop 7s var(--ease) infinite both; }
+/* Bottom padding keeps descenders (the g in Integrated) inside the clipping box; negative margin keeps line spacing unchanged */
+.hx-title .word { display: inline-block; overflow: hidden; margin-right: .28em; padding-bottom: .18em; margin-bottom: -.18em; }
+.hx-title .word > span { display: inline-block; transform: translateY(115%) rotateX(-40deg); transform-origin: bottom; opacity: 0; animation: wordIn .85s var(--ease) forwards; }
 .hx-title em {
   font-style: normal;
   background: linear-gradient(100deg, var(--gold-300) 20%, #fff 45%, var(--gold-300) 70%);
