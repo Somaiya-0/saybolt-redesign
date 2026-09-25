@@ -679,7 +679,7 @@ a.company-row { text-decoration: none; color: inherit; }
   .hx-inner { grid-template-columns: 1fr; }
   .hx-caption { display: none; }
   .hx-route { margin-bottom: 10px; }
-  .route-ship { animation-duration: 6s; }
+  .route-ship { animation-duration: 5s; }
   .hx-scroll { display: none; }
   .hx .hx-stats-wrap { padding-bottom: 48px; }
   .hx-stats { grid-template-columns: 1fr 1fr; gap: 20px 0; }
