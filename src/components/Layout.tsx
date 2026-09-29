@@ -24,16 +24,24 @@ function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [shut, setShut] = useState<string | null>(null) // dropdown hidden after a click until the mouse leaves
+  const [drop, setDrop] = useState<string | null>(null) // open desktop dropdown
   const [sub, setSub] = useState<string | null>(null) // expanded submenu in the mobile menu
   const { pathname } = useLocation()
 
   useEffect(() => {
     setOpen(false)
     setSub(null)
-    // drop focus from the clicked submenu link so :focus-within closes the dropdown
-    ;(document.activeElement as HTMLElement | null)?.blur()
+    setDrop(null)
   }, [pathname])
+  useEffect(() => {
+    if (!drop) return
+    const close = (e: Event) => {
+      if (!(e.target as Element).closest?.('.has-mega') || (e as KeyboardEvent).key === 'Escape') setDrop(null)
+    }
+    document.addEventListener('click', close)
+    document.addEventListener('keydown', close)
+    return () => { document.removeEventListener('click', close); document.removeEventListener('keydown', close) }
+  }, [drop])
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
@@ -56,11 +64,13 @@ function Header() {
         <nav className="main-nav" aria-label="Main">
           {nav.map((n) =>
             n.items ? (
-              <div className={`has-mega ${shut === n.to ? 'shut' : ''}`} key={n.to} onMouseLeave={() => setShut(null)}>
-                <NavLink to={n.to}>{n.label} <ChevronDown size={16} aria-hidden /></NavLink>
+              <div className={`has-mega ${drop === n.to ? 'open' : ''}`} key={n.to}>
+                <button className="mega-btn" aria-expanded={drop === n.to} onClick={() => setDrop(drop === n.to ? null : n.to)}>
+                  {n.label} <ChevronDown size={16} aria-hidden />
+                </button>
                 <div className={`mega ${n.items.length < 5 ? 'mega-sm' : ''}`} role="menu">
                   {n.items.map((i) => (
-                    <Link key={i.to} to={i.to} role="menuitem" onClick={() => setShut(n.to)}>{i.label}</Link>
+                    <Link key={i.to} to={i.to} role="menuitem" onClick={() => setDrop(null)}>{i.label}</Link>
                   ))}
                 </div>
               </div>
