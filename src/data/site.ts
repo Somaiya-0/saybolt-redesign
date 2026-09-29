@@ -2,26 +2,25 @@
 // Only stray "*" bullet characters and obvious list-formatting were cleaned up.
 // Edit here to update text across the whole site.
 import type { PageContent } from './types'
+import { pic } from './img'
 export { services } from './services'
 export type { Service, IconName } from './services'
 export { companies } from './companies'
 export type { Company } from './companies'
 
-const U = 'https://sayboltgroup.com/wp-content/uploads/'
-// Photos are the ones already used on sayboltgroup.com (hot-linked). Copy them into /public for production.
 export const IMG = {
-  heroShip: U + '2026/07/anastasios-antoniadis-AMXFr97d00c-unsplash.webp',
-  multimodal: U + '2026/07/Screenshot-2026-07-02-003021.webp',
-  cover: U + '2026/07/cover.jpeg',
-  containerShip: U + '2026/07/shipping-scaled.webp',
-  sayboltShip: U + '2026/07/s-exp.jpeg',
-  team: U + '2026/07/join-team.jpg',
-  manufacturing: U + '2026/07/manu.jpg',
-  officeBuilding: U + '2026/07/Warehouse.jpg',
-  warehouse: 'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=2000&q=80',
-  ceo: U + '2026/07/rony.webp',
-  gm: U + '2026/07/gm.jpeg',
-  logo: U + '2026/07/logo.webp',
+  heroShip: pic('anastasios-antoniadis-AMXFr97d00c-unsplash'),
+  multimodal: pic('Screenshot-2026-07-02-003021'),
+  cover: pic('cover'),
+  containerShip: pic('shipping-scaled'),
+  sayboltShip: pic('s-exp'),
+  team: pic('join-team'),
+  manufacturing: pic('manu'),
+  officeBuilding: pic('Warehouse'),
+  warehouse: pic('photo-1553413077-190dd305871c'),
+  ceo: pic('rony'),
+  gm: pic('gm'),
+  logo: pic('logo'),
 }
 
 export const PRIMARY_PHONE = '+88 01741-212517'

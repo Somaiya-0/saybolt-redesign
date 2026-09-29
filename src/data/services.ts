@@ -3,6 +3,7 @@
 //  - `page`  = the full text of the service's own page (e.g. /sea-freight/).
 // Only obvious typos/list-formatting were normalised (stray "*" bullets removed).
 import type { PageContent } from './types'
+import { pic } from './img'
 
 export type IconName =
   | 'plane' | 'ship' | 'crane' | 'network' | 'shirt' | 'factory'
@@ -18,7 +19,6 @@ export interface Service {
   page: PageContent
 }
 
-const U = 'https://sayboltgroup.com/wp-content/uploads/'
 
 export const services: Service[] = [
   {
@@ -26,7 +26,7 @@ export const services: Service[] = [
     title: 'Air Freight',
     icon: 'plane',
     group: 'Logistics',
-    image: U + '2026/07/patrick-campanale-oCsQLKENz34-unsplash-scaled-e1784036009149.jpg',
+    image: pic('patrick-campanale-oCsQLKENz34-unsplash-scaled-e1784036009149'),
     home: {
       paras: [
         'Time-critical cargo requires speed, precision, and reliability. Our international air freight services are designed to deliver shipments quickly and securely to destinations across the globe.',
@@ -63,7 +63,7 @@ export const services: Service[] = [
     title: 'Sea Freight',
     icon: 'ship',
     group: 'Logistics',
-    image: U + '2026/07/shipping-scaled.webp',
+    image: pic('shipping-scaled'),
     home: {
       paras: [
         'Sea freight has been the cornerstone of our logistics expertise since the company’s inception. Today, Saybolt Group manages international ocean freight solutions connecting businesses with global markets through reliable, cost-effective shipping services.',
@@ -110,7 +110,7 @@ export const services: Service[] = [
     title: 'Project Logistics',
     icon: 'crane',
     group: 'Logistics',
-    image: U + '2026/07/project-scaled.jpg',
+    image: pic('project-scaled'),
     home: {
       paras: [
         'Complex industrial projects demand more than transportation—they require strategic planning, engineering expertise, and flawless execution.',
@@ -151,7 +151,7 @@ export const services: Service[] = [
     title: 'Integrated Logistics & Supply Chain Management',
     icon: 'network',
     group: 'Logistics',
-    image: U + '2026/07/Screenshot-2026-07-02-003021.webp',
+    image: pic('Screenshot-2026-07-02-003021'),
     home: {
       paras: [
         'Modern businesses require intelligent logistics that extend far beyond moving cargo from one location to another.',
@@ -193,7 +193,7 @@ export const services: Service[] = [
     title: 'Ready-Made Garments (RMG)',
     icon: 'shirt',
     group: 'Industry',
-    image: U + '2026/07/rmg.jpg',
+    image: pic('rmg'),
     home: {
       paras: ['Bangladesh is one of the world’s leading apparel manufacturing hubs, and Saybolt Group proudly contributes to this globally recognized industry. We manufacture and supply premium-quality garments that meet international standards for fashion brands, retailers, wholesalers, and private-label customers worldwide. Our commitment to quality assurance, ethical manufacturing, timely delivery, and sustainable production ensures lasting partnerships with global buyers.'],
     },
@@ -245,7 +245,7 @@ export const services: Service[] = [
     title: 'Manufacturing',
     icon: 'factory',
     group: 'Industry',
-    image: U + '2026/07/manu.jpg',
+    image: pic('manu'),
     home: {
       paras: [
         'Saybolt Group operates modern manufacturing facilities dedicated to producing high-quality products through precision engineering, advanced technology, and stringent quality control.',
@@ -300,7 +300,7 @@ export const services: Service[] = [
     title: 'Trading & Information Technology',
     icon: 'cpu',
     group: 'Commerce & Media',
-    image: U + '2026/07/TRADING.jpg',
+    image: pic('TRADING'),
     home: {
       paras: [
         'Global commerce is increasingly driven by technology, connectivity, and intelligent business solutions.',
@@ -357,7 +357,7 @@ export const services: Service[] = [
     title: 'Business Solutions',
     icon: 'briefcase',
     group: 'Commerce & Media',
-    image: U + '2026/07/join-team.jpg',
+    image: pic('join-team'),
     home: {
       paras: [
         'Every business faces unique operational challenges that require customized solutions.',
@@ -412,7 +412,7 @@ export const services: Service[] = [
     title: 'Printing & Publishing',
     icon: 'printer',
     group: 'Commerce & Media',
-    image: U + '2026/07/printing.jpg',
+    image: pic('printing'),
     home: {
       paras: [
         'From corporate branding materials to commercial publications, Saybolt Group provides comprehensive printing and publishing solutions with exceptional quality and precision.',
@@ -469,7 +469,7 @@ export const services: Service[] = [
     title: 'Advertising & Brand Communication',
     icon: 'megaphone',
     group: 'Commerce & Media',
-    image: 'https://images.unsplash.com/photo-1758613654806-fa787b741bba?auto=format&fit=crop&w=1600&q=80',
+    image: pic('photo-1758613654806-fa787b741bba'),
     home: {
       paras: [
         'Strong brands are built through strategic communication and creative excellence.',

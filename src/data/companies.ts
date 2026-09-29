@@ -2,6 +2,7 @@
 //  - `description` = the homepage "Our Group Companies" text.
 //  - `page`        = the full text of the company's own page.
 import type { PageContent } from './types'
+import { pic } from './img'
 
 export interface Company {
   slug: string
@@ -13,14 +14,13 @@ export interface Company {
   page: PageContent
 }
 
-const U = 'https://sayboltgroup.com/wp-content/uploads/'
 
 export const companies: Company[] = [
   {
     slug: 'saybolt-adjusters',
     name: 'Saybolt Adjusters',
     initials: 'SA',
-    image: U + '2026/07/cover.jpeg',
+    image: pic('cover'),
     flagship: true,
     description: "Saybolt Adjusters is the flagship company of Saybolt Group and one of Bangladesh's leading survey, inspection, and loss-adjusting organisations. Since 1991, we have earned the trust of clients through professionalism, technical expertise, and uncompromising service quality.",
     page: {
@@ -50,7 +50,7 @@ export const companies: Company[] = [
     slug: 'saybolt-express',
     name: 'Saybolt Express',
     initials: 'SE',
-    image: U + '2026/07/s-exp.jpeg',
+    image: pic('s-exp'),
     description: 'Saybolt Express delivers comprehensive international freight forwarding, shipping agency, customs brokerage, and logistics solutions. Since 1991, we have successfully handled more than 20,000 TEUs annually, serving clients through a trusted global logistics network.',
     page: {
       title: 'Saybolt Express',
@@ -69,7 +69,7 @@ export const companies: Company[] = [
     slug: 'nandita-enterprise',
     name: 'Nandita Enterprise',
     initials: 'NE',
-    image: U + '2026/06/nandita.webp',
+    image: pic('nandita'),
     description: 'Nandita Enterprise is a trusted trading and sourcing company specializing in international import, export, indenting, merchandising, procurement, distribution, and commercial agency services. Our commitment to integrity and efficiency has made us a reliable partner for businesses across diverse industries.',
     page: {
       title: 'Nandita Enterprise',
@@ -117,7 +117,7 @@ export const companies: Company[] = [
     slug: 'net-access-bangladesh',
     name: 'Net Access Bangladesh',
     initials: 'NA',
-    image: U + '2026/06/isp.webp',
+    image: pic('isp'),
     description: 'Net Access Bangladesh is a leading provider of internet connectivity, network infrastructure, cloud solutions, cybersecurity, and enterprise IT services. We empower businesses with reliable, secure, and scalable technology solutions that drive digital transformation.',
     page: {
       title: 'Net Access Bangladesh',
@@ -158,7 +158,7 @@ export const companies: Company[] = [
     slug: 'international-multimedia-advertising',
     name: 'International Multimedia Advertising (IMA)',
     initials: 'IMA',
-    image: 'https://images.unsplash.com/photo-1763705857736-2b4f16a33758?auto=format&fit=crop&w=1600&q=80',
+    image: pic('photo-1763705857736-2b4f16a33758'),
     description: 'International Multimedia Advertising (IMA) delivers innovative branding, digital marketing, media planning, printing, and advertising solutions. Combining creativity with modern technology, we help businesses build powerful brands and connect with their target audiences across multiple platforms.',
     page: {
       title: 'International Multimedia Advertising (IMA)',

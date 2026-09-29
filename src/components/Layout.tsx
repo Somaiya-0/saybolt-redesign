@@ -26,7 +26,11 @@ function Header() {
   const [progress, setProgress] = useState(0)
   const { pathname } = useLocation()
 
-  useEffect(() => setOpen(false), [pathname])
+  useEffect(() => {
+    setOpen(false)
+    // drop focus from the clicked submenu link so :focus-within closes the dropdown
+    ;(document.activeElement as HTMLElement | null)?.blur()
+  }, [pathname])
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40)
