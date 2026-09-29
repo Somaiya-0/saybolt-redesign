@@ -4,7 +4,8 @@ import { Menu, X, Phone, Mail, ArrowUp, ArrowRight, ChevronDown } from 'lucide-r
 import { Logo, Reveal } from './ui'
 import { IMG, companies, offices, services, home, overview, memberships, PRIMARY_PHONE, PRIMARY_PHONE_TEL, PRIMARY_EMAIL } from '../data/site'
 
-const nav: { to: string; label: string; items?: { to: string; label: string }[] }[] = [
+// page: the parent label also links to its own page (About has none of its own in the nav)
+const nav: { to: string; label: string; page?: boolean; items?: { to: string; label: string }[] }[] = [
   { to: '/', label: 'Home' },
   {
     to: '/about', label: 'About', items: [
@@ -13,7 +14,7 @@ const nav: { to: string; label: string; items?: { to: string; label: string }[] 
       { to: '/message/gm', label: 'GM Message' },
     ],
   },
-  { to: '/services', label: 'Services', items: services.map((s) => ({ to: `/services/${s.slug}`, label: s.title })) },
+  { to: '/services', label: 'Services', page: true, items: services.map((s) => ({ to: `/services/${s.slug}`, label: s.title })) },
   { to: '/companies', label: 'Companies' },
   { to: '/warehouses', label: 'Warehouses' },
   { to: '/careers', label: 'Careers' },
@@ -24,7 +25,8 @@ function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [drop, setDrop] = useState<string | null>(null) // open desktop dropdown
+  const [drop, setDrop] = useState<string | null>(null) // desktop dropdown opened by click
+  const [shut, setShut] = useState<string | null>(null) // desktop dropdown hidden after picking an item, until the mouse leaves
   const [sub, setSub] = useState<string | null>(null) // expanded submenu in the mobile menu
   const { pathname } = useLocation()
 
@@ -64,13 +66,17 @@ function Header() {
         <nav className="main-nav" aria-label="Main">
           {nav.map((n) =>
             n.items ? (
-              <div className={`has-mega ${drop === n.to ? 'open' : ''}`} key={n.to}>
-                <button className="mega-btn" aria-expanded={drop === n.to} onClick={() => setDrop(drop === n.to ? null : n.to)}>
-                  {n.label} <ChevronDown size={16} aria-hidden />
-                </button>
+              <div className={`has-mega ${drop === n.to ? 'open' : ''} ${shut === n.to ? 'shut' : ''}`} key={n.to} onMouseLeave={() => setShut(null)}>
+                {n.page ? (
+                  <NavLink to={n.to} end className="mega-btn">{n.label} <ChevronDown size={16} aria-hidden /></NavLink>
+                ) : (
+                  <button className="mega-btn" aria-expanded={drop === n.to} onClick={() => setDrop(drop === n.to ? null : n.to)}>
+                    {n.label} <ChevronDown size={16} aria-hidden />
+                  </button>
+                )}
                 <div className={`mega ${n.items.length < 5 ? 'mega-sm' : ''}`} role="menu">
                   {n.items.map((i) => (
-                    <Link key={i.to} to={i.to} role="menuitem" onClick={() => setDrop(null)}>{i.label}</Link>
+                    <Link key={i.to} to={i.to} role="menuitem" onClick={() => { setDrop(null); setShut(n.to) }}>{i.label}</Link>
                   ))}
                 </div>
               </div>
@@ -90,9 +96,19 @@ function Header() {
           {nav.map((n) =>
             n.items ? (
               <div key={n.to}>
-                <button className="mm-toggle" aria-expanded={sub === n.to} onClick={() => setSub(sub === n.to ? null : n.to)} tabIndex={open ? 0 : -1}>
-                  {n.label} <ChevronDown size={22} aria-hidden />
-                </button>
+                {n.page ? (
+                  // first tap opens the submenu, tap again goes to the page; the arrow just toggles
+                  <div className="mm-row">
+                    <NavLink to={n.to} end tabIndex={open ? 0 : -1} onClick={(e) => { if (sub !== n.to) { e.preventDefault(); setSub(n.to) } }}>{n.label}</NavLink>
+                    <button className="mm-arrow" aria-expanded={sub === n.to} aria-label={`Toggle ${n.label} submenu`} onClick={() => setSub(sub === n.to ? null : n.to)} tabIndex={open ? 0 : -1}>
+                      <ChevronDown size={22} aria-hidden />
+                    </button>
+                  </div>
+                ) : (
+                  <button className="mm-toggle" aria-expanded={sub === n.to} onClick={() => setSub(sub === n.to ? null : n.to)} tabIndex={open ? 0 : -1}>
+                    {n.label} <ChevronDown size={22} aria-hidden />
+                  </button>
+                )}
                 {sub === n.to && n.items.map((i) => (
                   <NavLink key={i.to} to={i.to} end className="sub" tabIndex={open ? 0 : -1}>{i.label}</NavLink>
                 ))}
