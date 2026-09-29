@@ -152,7 +152,10 @@ h1 em, h2 em, .display em { font-family: inherit; font-style: normal; font-weigh
 .mobile-menu { position: fixed; inset: 76px 0 0 0; background: var(--paper); padding: 24px 24px 40px; display: flex; flex-direction: column; gap: 14px; clip-path: inset(0 0 100% 0); visibility: hidden; transition: clip-path .6s var(--ease-io), visibility .6s; overflow-y: auto; }
 .mobile-menu.open { clip-path: inset(0 0 0 0); visibility: visible; }
 .mobile-menu nav { display: flex; flex-direction: column; margin-bottom: 12px; }
-.mobile-menu nav a { display: flex; justify-content: space-between; align-items: center; padding: 18px 4px; font: 700 1.45rem var(--sans); letter-spacing: -.02em; color: var(--navy-900); text-decoration: none; border-bottom: 1px solid var(--line); }
+.mobile-menu nav a, .mobile-menu .mm-toggle { display: flex; justify-content: space-between; align-items: center; padding: 18px 4px; font: 700 1.45rem var(--sans); letter-spacing: -.02em; color: var(--navy-900); text-decoration: none; border-bottom: 1px solid var(--line); }
+.mobile-menu .mm-toggle { width: 100%; background: none; border: 0; border-bottom: 1px solid var(--line); cursor: pointer; text-align: left; }
+.mobile-menu .mm-toggle svg { transition: transform .3s; }
+.mobile-menu .mm-toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
 .mobile-menu nav a.sub { padding: 12px 4px 12px 20px; font-size: 1.1rem; font-weight: 600; }
 .mobile-menu nav a.active { color: var(--gold-600); }
 

@@ -25,10 +25,12 @@ function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
   const [shut, setShut] = useState<string | null>(null) // dropdown hidden after a click until the mouse leaves
+  const [sub, setSub] = useState<string | null>(null) // expanded submenu in the mobile menu
   const { pathname } = useLocation()
 
   useEffect(() => {
     setOpen(false)
+    setSub(null)
     // drop focus from the clicked submenu link so :focus-within closes the dropdown
     ;(document.activeElement as HTMLElement | null)?.blur()
   }, [pathname])
@@ -75,13 +77,20 @@ function Header() {
       </div>
       <div className={`mobile-menu ${open ? 'open' : ''}`} aria-hidden={!open}>
         <nav aria-label="Mobile">
-          {nav.map((n) => [
-            <NavLink key={n.to} to={n.to} end={n.to === '/'} tabIndex={open ? 0 : -1}>{n.label} <ArrowRight size={20} aria-hidden /></NavLink>,
-            // short submenus (About) are listed inline; Services is too long for mobile
-            ...(n.items && n.items.length < 5 ? n.items : []).map((i) => (
-              <NavLink key={`sub${i.to}`} to={i.to} end className="sub" tabIndex={open ? 0 : -1}>{i.label}</NavLink>
-            )),
-          ])}
+          {nav.map((n) =>
+            n.items ? (
+              <div key={n.to}>
+                <button className="mm-toggle" aria-expanded={sub === n.to} onClick={() => setSub(sub === n.to ? null : n.to)} tabIndex={open ? 0 : -1}>
+                  {n.label} <ChevronDown size={22} aria-hidden />
+                </button>
+                {sub === n.to && n.items.map((i) => (
+                  <NavLink key={i.to} to={i.to} end className="sub" tabIndex={open ? 0 : -1}>{i.label}</NavLink>
+                ))}
+              </div>
+            ) : (
+              <NavLink key={n.to} to={n.to} end={n.to === '/'} tabIndex={open ? 0 : -1}>{n.label} <ArrowRight size={20} aria-hidden /></NavLink>
+            ),
+          )}
         </nav>
         <a href={`tel:${PRIMARY_PHONE_TEL}`} className="btn btn-gold btn-block btn-lg" tabIndex={open ? 0 : -1}><Phone size={20} aria-hidden /> Call {PRIMARY_PHONE}</a>
         <a href={`mailto:${PRIMARY_EMAIL}`} className="btn btn-outline btn-block" tabIndex={open ? 0 : -1}><Mail size={20} aria-hidden /> {PRIMARY_EMAIL}</a>
