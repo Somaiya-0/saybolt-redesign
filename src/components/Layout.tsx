@@ -4,10 +4,16 @@ import { Menu, X, Phone, Mail, ArrowUp, ArrowRight, ChevronDown } from 'lucide-r
 import { Logo, Reveal } from './ui'
 import { IMG, companies, offices, services, home, overview, memberships, PRIMARY_PHONE, PRIMARY_PHONE_TEL, PRIMARY_EMAIL } from '../data/site'
 
-const nav = [
+const nav: { to: string; label: string; items?: { to: string; label: string }[] }[] = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/services', label: 'Services', mega: true },
+  {
+    to: '/about', label: 'About', items: [
+      { to: '/about', label: 'Company Overview' },
+      { to: '/message/ceo', label: 'CEO Message' },
+      { to: '/message/gm', label: 'GM Message' },
+    ],
+  },
+  { to: '/services', label: 'Services', items: services.map((s) => ({ to: `/services/${s.slug}`, label: s.title })) },
   { to: '/companies', label: 'Companies' },
   { to: '/warehouses', label: 'Warehouses' },
   { to: '/careers', label: 'Careers' },
@@ -42,12 +48,12 @@ function Header() {
         <Link to="/" aria-label="Saybolt Group home"><Logo light={!scrolled && !open} /></Link>
         <nav className="main-nav" aria-label="Main">
           {nav.map((n) =>
-            n.mega ? (
+            n.items ? (
               <div className="has-mega" key={n.to}>
                 <NavLink to={n.to}>{n.label} <ChevronDown size={16} aria-hidden /></NavLink>
-                <div className="mega" role="menu">
-                  {services.map((s) => (
-                    <Link key={s.slug} to={`/services/${s.slug}`} role="menuitem">{s.title}</Link>
+                <div className={`mega ${n.items.length < 5 ? 'mega-sm' : ''}`} role="menu">
+                  {n.items.map((i) => (
+                    <Link key={i.to} to={i.to} role="menuitem">{i.label}</Link>
                   ))}
                 </div>
               </div>
@@ -64,9 +70,13 @@ function Header() {
       </div>
       <div className={`mobile-menu ${open ? 'open' : ''}`} aria-hidden={!open}>
         <nav aria-label="Mobile">
-          {nav.map((n) => (
-            <NavLink key={n.to} to={n.to} end={n.to === '/'} tabIndex={open ? 0 : -1}>{n.label} <ArrowRight size={20} aria-hidden /></NavLink>
-          ))}
+          {nav.map((n) => [
+            <NavLink key={n.to} to={n.to} end={n.to === '/'} tabIndex={open ? 0 : -1}>{n.label} <ArrowRight size={20} aria-hidden /></NavLink>,
+            // short submenus (About) are listed inline; Services is too long for mobile
+            ...(n.items && n.items.length < 5 ? n.items : []).map((i) => (
+              <NavLink key={`sub${i.to}`} to={i.to} end className="sub" tabIndex={open ? 0 : -1}>{i.label}</NavLink>
+            )),
+          ])}
         </nav>
         <a href={`tel:${PRIMARY_PHONE_TEL}`} className="btn btn-gold btn-block btn-lg" tabIndex={open ? 0 : -1}><Phone size={20} aria-hidden /> Call {PRIMARY_PHONE}</a>
         <a href={`mailto:${PRIMARY_EMAIL}`} className="btn btn-outline btn-block" tabIndex={open ? 0 : -1}><Mail size={20} aria-hidden /> {PRIMARY_EMAIL}</a>

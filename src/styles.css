@@ -136,6 +136,7 @@ h1 em, h2 em, .display em { font-family: inherit; font-style: normal; font-weigh
 .main-nav > a.active::after, .has-mega > a.active::after { content: ''; position: absolute; left: 50%; bottom: 3px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold-400); transform: translateX(-50%); }
 .has-mega { position: relative; }
 .mega { position: absolute; top: calc(100% + 14px); left: 50%; transform: translate(-50%, 10px); width: 580px; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 14px; background: #fff; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); opacity: 0; visibility: hidden; transition: all .35s var(--ease); }
+.mega.mega-sm { width: 260px; grid-template-columns: 1fr; }
 .mega::before { content: ''; position: absolute; top: -14px; left: 0; right: 0; height: 14px; }
 .has-mega:hover .mega, .has-mega:focus-within .mega { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
 .main-nav .mega a { color: var(--ink); font-size: .98rem; padding: 12px 16px; border-radius: 12px; }
@@ -151,6 +152,7 @@ h1 em, h2 em, .display em { font-family: inherit; font-style: normal; font-weigh
 .mobile-menu.open { clip-path: inset(0 0 0 0); visibility: visible; }
 .mobile-menu nav { display: flex; flex-direction: column; margin-bottom: 12px; }
 .mobile-menu nav a { display: flex; justify-content: space-between; align-items: center; padding: 18px 4px; font: 700 1.45rem var(--sans); letter-spacing: -.02em; color: var(--navy-900); text-decoration: none; border-bottom: 1px solid var(--line); }
+.mobile-menu nav a.sub { padding: 12px 4px 12px 20px; font-size: 1.1rem; font-weight: 600; }
 .mobile-menu nav a.active { color: var(--gold-600); }
 
 /* =========================================================
