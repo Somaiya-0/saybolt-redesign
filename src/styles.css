@@ -172,7 +172,7 @@ h1 em, h2 em, .display em { font-family: inherit; font-style: normal; font-weigh
 .hx-kicker .dot { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--gold-300); animation: pulse 2s infinite; }
 .hx-title { color: #fff; font-size: clamp(2.3rem, 4.4vw, 3.85rem); line-height: 1.04; letter-spacing: -0.03em; font-weight: 700; margin-bottom: 18px; perspective: 600px; }
 .hx-title .ln { display: flex; flex-wrap: wrap; overflow: visible; padding-bottom: .1em; }
-.hx-title .word { display: inline-block; overflow: hidden; margin-right: .28em; }
+.hx-title .word { display: inline-block; overflow: hidden; margin-right: .28em; padding-bottom: .18em; margin-bottom: -.18em; }
 .hx-title .word > span { display: inline-block; transform: translateY(115%) rotateX(-40deg); transform-origin: bottom; opacity: 0; animation: wordIn .85s var(--ease) forwards; }
 .hx-title em {
   font-style: normal;
@@ -679,8 +679,10 @@ a.company-row { text-decoration: none; color: inherit; }
   .section { padding: 96px 0; }
   .hx-inner { grid-template-columns: 1fr; }
   .hx-caption { display: none; }
-  .hx-route { display: none; }
+  .hx-route { margin-bottom: 10px; }
+  .route-ship { animation-duration: 4s; }
   .hx-scroll { display: none; }
+  .hx .hx-stats-wrap { padding-bottom: 48px; }
   .hx-stats { grid-template-columns: 1fr 1fr; gap: 20px 0; }
   .hx-stat:nth-child(3) { padding-left: 0; border-left: 0; }
   .intro-grid, .split, .detail-grid, .cta-inner, .presence-grid { grid-template-columns: 1fr; gap: 56px; }
@@ -768,6 +770,6 @@ a.company-row { text-decoration: none; color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition: none !important; scroll-behavior: auto !important; }
   .reveal, .fade-up { opacity: 1; transform: none; }
-  .hx-title .word > span { transform: none; opacity: 1; }
+  .hx-title .word > span { transform: none; opacity: 1; animation: none !important; }
   .marquee-track { animation: none !important; }
 }
