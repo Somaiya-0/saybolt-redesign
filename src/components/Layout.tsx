@@ -24,6 +24,7 @@ function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [shut, setShut] = useState<string | null>(null) // dropdown hidden after a click until the mouse leaves
   const { pathname } = useLocation()
 
   useEffect(() => {
@@ -53,11 +54,11 @@ function Header() {
         <nav className="main-nav" aria-label="Main">
           {nav.map((n) =>
             n.items ? (
-              <div className="has-mega" key={n.to}>
+              <div className={`has-mega ${shut === n.to ? 'shut' : ''}`} key={n.to} onMouseLeave={() => setShut(null)}>
                 <NavLink to={n.to}>{n.label} <ChevronDown size={16} aria-hidden /></NavLink>
                 <div className={`mega ${n.items.length < 5 ? 'mega-sm' : ''}`} role="menu">
                   {n.items.map((i) => (
-                    <Link key={i.to} to={i.to} role="menuitem">{i.label}</Link>
+                    <Link key={i.to} to={i.to} role="menuitem" onClick={() => setShut(n.to)}>{i.label}</Link>
                   ))}
                 </div>
               </div>
